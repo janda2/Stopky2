@@ -2,7 +2,7 @@
  * React Chronometer
  */
 var Chrono = React.createClass({
-
+  //init
   getInitialState: function() {
     return {
       startTS: null,
@@ -12,10 +12,12 @@ var Chrono = React.createClass({
     };
   },
 
+  //po creatu
   componentDidMount: function() {
     window.addEventListener('keydown', this.onKeyDown);
   },
 
+  //reakce na klavesy
   onKeyDown: function(evt){
     evt.preventDefault();
     // start|stop on [space]
@@ -24,6 +26,7 @@ var Chrono = React.createClass({
     evt.keyCode === 27 && this.reset();
   },
 
+  //spusteni
   start: function(){
     if (this.state.startTS) {
       // prevent multi clicks on start
@@ -36,6 +39,7 @@ var Chrono = React.createClass({
     });
   },
 
+  //stopnuti
   stop: function(){
     cancelAnimationFrame(this.state.interval);
     this.setState({
@@ -44,11 +48,13 @@ var Chrono = React.createClass({
     });
   },
 
+  //reset
   reset: function(){
     cancelAnimationFrame(this.state.interval);
     this.setState(this.getInitialState());
   },
 
+  //jeden tik
   tick: function(){
     this.setState({
       diff: new Date(+new Date() - this.state.startTS),
@@ -56,12 +62,12 @@ var Chrono = React.createClass({
     });
   },
 
+  //nevim upa
   addZero: function(n){
     return n < 10 ? '0' + n : n;
   },
 
   render: function(){
-
     var diff = this.state.diff;
     var hundredths = diff ? Math.round(this.state.diff.getMilliseconds()/10) : 0;
     var seconds = diff ? this.state.diff.getSeconds() : 0;
@@ -82,3 +88,6 @@ var Chrono = React.createClass({
   }
 
 });
+
+
+React.render(<Chrono />, document.body);
