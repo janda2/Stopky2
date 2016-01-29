@@ -21,9 +21,19 @@ var Chrono = React.createClass({
   onKeyDown: function(evt){
     evt.preventDefault();
     // start|stop on [space]
-    evt.keyCode === 32 && this[!this.state.startTS ? 'start' : 'stop']();
+    if (evt.keyCode === 32) {
+        if (this.state.startTS) {
+            this.stop();
+        }
+        else {
+            this.start();
+        }
+    }
+
     // reset on [escape]
-    evt.keyCode === 27 && this.reset();
+    if (evt.keyCode === 27) {
+        this.reset();
+    } 
   },
 
   //spusteni
